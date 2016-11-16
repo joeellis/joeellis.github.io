@@ -15,6 +15,23 @@
           transform: $transforms;
 }
 
+.avatar-photo {
+  border-radius: 150px;
+  display: block;
+  z-index: -1;
+  position: relative;
+}
+
+.intro-photo {
+  float: left;
+}
+
+.intro-description {
+  overflow: hidden;
+  padding-left: 25px;
+
+}
+
 
 .header-intro {
     font-size: 18px;
