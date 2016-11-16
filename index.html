@@ -2,14 +2,13 @@
 layout: default
 ---
 
-<!-- Brief intro -->
 <div class="header-intro">
-  <h2>fffabs</h2>
-  <p><a href="http://brotherhood.io/">I am a designer &amp; developer. &rarr;</a> <br />This is my blog. No promises on frequency.
-  <br />Let's keep things casual.</p>
+  <h2>joe ellis</h2>
+  <p>
+    <a href="http://joeellis.la">I am a full stack developer, living in New Orleans, interested all things Elixir, Ruby, and Javascript.</a>
+  </p>
 </div>
 <hr />
-<!-- End intro -->
 
 <div class="home">
 
@@ -20,9 +19,6 @@ layout: default
         <aside class="dates">{{ post.date | date: "%b %-d" }}</aside>
         </a>
         <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }} <h2>{{ post.description }}</h2></a>
-        <!-- <p>
-        {{ post.content | truncatewords: 50 }}
-        </p> -->
       </li>
     {% endfor %}
   </ul>

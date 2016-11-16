@@ -5,10 +5,10 @@ permalink: /about/
 ---
 
 <a class="twitter-follow-button"
-  href="https://twitter.com/fffabs"
+  href="https://twitter.com/notjoeellis"
   data-show-count="true"
   data-size="large">
-Follow @fffabs
+Follow @notjoeellis
 </a>
 
 This is [Fabio Basile](http://fffabs.com/)'s little online notebook. I like to design apps, websites and games for people like you, and I use this space to occasionally talk about them. I am a self-taught digital designer and occasional speaker.

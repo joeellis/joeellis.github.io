@@ -1,38 +1,3 @@
-/**
- * Site header
- */
-
-.header-intro {
-    font-size: 18px;
-    color: #aaa;
-}
-.header-intro a, .header-intro a:visited {
-    color: #aaa;
-}
-.header-intro a:hover {
-    color: $brand-color;
-    text-decoration: none;
-}
-
-.header-container {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    height: 70px;
-    background: #3366ff;
-    background-image: -moz-linear-gradient(right top, $from 0%, $to 100%);
-    background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, $from), color-stop(1, $to));
-    background: -webkit-linear-gradient(right top, $from 0%, $to 100%);
-    background: -o-linear-gradient(right top, $from 0%, $to 100%);
-    background: -ms-linear-gradient(right top, $from 0%, $to 100%);
-    background: linear, right top, $from 0%, $to 100%;
-    opacity: 0.95;
-    z-index: 10;
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    transition: 0.5s;
-}
-
 // Header hiding
 @mixin transition($transition-property, $transition-time, $method) {
     -webkit-transition: $transition-property $transition-time $method;
@@ -49,6 +14,23 @@
     -webkit-transform: $transforms;
           transform: $transforms;
 }
+
+
+.header-intro {
+    font-size: 18px;
+    color: #ff4040;
+}
+
+.header-intro a, .header-intro a:visited {
+    color: #717171;
+}
+
+.header-intro a:hover {
+    color: $brand-color;
+    text-decoration: none;
+}
+
+
 
 .headroom {
     @include transition(transform, 200ms, linear);
@@ -128,7 +110,6 @@ nav.site-nav {
         font-size: 14px;
         font-weight: 600;
 
-        // Gaps between nav items, but not on the first one
         &:not(:first-child) {
             margin-left: 20px;
         }
@@ -139,13 +120,7 @@ nav.site-nav {
     }
 }
 
-
-
-/**
- * Site footer
- */
 .site-footer {
-    // box-shadow: inset 0 1px 0 #DFE1E4;
     padding: 40px 0 0 0;
     margin-top: 100px;
 }
@@ -168,10 +143,6 @@ nav.site-nav {
     margin-left: 0;
 }
 
-
-/**
- * Page content
- */
 
 .page-heading {
     font-size: 20px;
@@ -201,9 +172,6 @@ a,
     transition: all 0.15s ease;
 }
 
-/*=========================================
-Post List
-=========================================== */
 #post-list,#archive-list {
     margin-top: 50px;
 }
@@ -262,11 +230,6 @@ Post List
     font-size: 24px;
 }
 
-
-
-/**
- * Posts
- */
 .post-header {
     margin-bottom: $spacing-unit;
 }
