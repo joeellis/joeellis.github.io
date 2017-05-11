@@ -58,7 +58,7 @@ end
 
 {% endhighlight %}
 
-What?? I thought nested modules and namespaced modules compiled to the same thing? Shouldn't the first example also compile to `Foo.CSV`? Why does the second example work and not the first?
+What?? I thought nested modules and namespaced modules compiled to the same thing? Shouldn't the first example also compile to `Foo.CSV`? And why does the second example not throw the same error as the first one?
 
 ### Why this happens
 
