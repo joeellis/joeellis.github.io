@@ -43,7 +43,7 @@ I expected `Foo.CSV.export(file)` to trigger the `CSV` library to encode the fil
 or private
 {% endhighlight %}
 
-I realized this error makes some sense. I'm calling a function on a `CSV` module, and I *just* defined a named `CSV` module right above it. Naturally, the app should be confused as to which `CSV` module I'm referring to. But I really didn't want to change my module's name, so how can I tell the app which module I want to use?
+This error kind of makes sense. I'm calling a function on a `CSV` module, and I *just* defined a named `CSV` module right above it. Naturally, the app should be confused as to which `CSV` module I'm referring to. But I really didn't want to change my module's name, so how can I tell the app which module I want to use?
 
 After some experimenting, I found something even more interesting - switching from a nested module to a single namespaced module made it work:
 

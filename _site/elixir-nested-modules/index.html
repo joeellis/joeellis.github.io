@@ -74,7 +74,7 @@ categories: elixir
 <figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">(</span><span class="no">UndefinedFunctionError</span><span class="p">)</span> <span class="n">function</span> <span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="o">/</span><span class="m">1</span> <span class="n">is</span> <span class="n">undefined</span> 
 <span class="ow">or</span> <span class="n">private</span></code></pre></figure>
 
-<p>I realized this error makes some sense. I’m calling a function on a <code class="highlighter-rouge">CSV</code> module, and I <em>just</em> defined a named <code class="highlighter-rouge">CSV</code> module right above it. Naturally, the app should be confused as to which <code class="highlighter-rouge">CSV</code> module I’m referring to. But I really didn’t want to change my module’s name, so how can I tell the app which module I want to use?</p>
+<p>This error kind of makes sense. I’m calling a function on a <code class="highlighter-rouge">CSV</code> module, and I <em>just</em> defined a named <code class="highlighter-rouge">CSV</code> module right above it. Naturally, the app should be confused as to which <code class="highlighter-rouge">CSV</code> module I’m referring to. But I really didn’t want to change my module’s name, so how can I tell the app which module I want to use?</p>
 
 <p>After some experimenting, I found something even more interesting - switching from a nested module to a single namespaced module made it work:</p>
 
