@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+
+  <title>Elixir Nested Modules and Auto-Aliasing</title>
+  <meta name="description" content="layout: posttitle:  “Elixir Nested Modules and Auto-Aliasing”date:   2017-05-10description: “Nesting modules in Elixir has a few gotchas you should be aware ...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/elixir-nested-modules/">
+  <link rel="alternate" type="application/atom+xml" title="joeellis.la" href="http://localhost:4000/feed.xml" />
+</head>
+
+  <body>
+    <div class="header-container">
+  <nav class="site-nav">
+    <div class="trigger">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+        
+      
+        
+      
+        
+      
+        
+      
+      <a class="page-link" href="/feed.xml">RSS</a>
+    </div>
+  </nav>
+</div>
+
+      <div class="wrapper">
+        <div class="page-content">
+          <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Elixir Nested Modules and Auto-Aliasing</h1>
+    <p class="post-meta">May 10, 2017</p>
+  </header>
+
+  <article class="post-content">
+    <hr />
+<p>layout: post
+title:  “Elixir Nested Modules and Auto-Aliasing”
+date:   2017-05-10
+description: “Nesting modules in Elixir has a few gotchas you should be aware of.”
+categories: elixir
+—</p>
+
+<p>Recently, I was coding a CSV exports module when I came across an unexpected error in Elixir. Using the <a href="https://github.com/beatrichartz/csv">CSV</a> library, I wrote something like this:</p>
+
+<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="c1"># mix.exs</span>
+<span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:csv</span><span class="p">,</span> <span class="sd">"</span><span class="s2">~&gt; 1.4.2"</span><span class="p">}</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+
+<span class="c1"># csv.ex</span>
+<span class="k">defmodule</span> <span class="no">Foo</span> <span class="k">do</span>
+  <span class="k">defmodule</span> <span class="no">CSV</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="n">export</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
+      <span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>I expected <code class="highlighter-rouge">Foo.CSV.export(file)</code> to trigger the <code class="highlighter-rouge">CSV</code> library to encode the file I passed into the function.  To my surprise, the app came back with this error:</p>
+
+<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">(</span><span class="no">UndefinedFunctionError</span><span class="p">)</span> <span class="n">function</span> <span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="o">/</span><span class="m">1</span> <span class="n">is</span> <span class="n">undefined</span> 
+<span class="ow">or</span> <span class="n">private</span></code></pre></figure>
+
+<p>I realized this error makes some sense. I’m calling a function on a <code class="highlighter-rouge">CSV</code> module, and I <em>just</em> defined a named <code class="highlighter-rouge">CSV</code> module right above it. Naturally, the app should be confused as to which <code class="highlighter-rouge">CSV</code> module I’m referring to. But I really didn’t want to change my module’s name, so how can I tell the app which module I want to use?</p>
+
+<p>After some experimenting, I found something even more interesting - switching from a nested module to a single namespaced module made it work:</p>
+
+<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="c1"># csv.ex</span>
+<span class="k">defmodule</span> <span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">export</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>What?? I thought nested modules and namespaced modules compiled to the same thing? Shouldn’t the first example also compile to <code class="highlighter-rouge">Foo.CSV</code>? Why does the second example work and not the first?</p>
+
+<h3 id="why-this-happens">Why this happens</h3>
+
+<p>After asking around, I found this behavior puzzled other Elixir developers as well. Thankfully, <a href="http://github.com/bryanjos">Bryan Joseph</a> helped me figure out what was happening.</p>
+
+<p>While compiling, when Elixir reaches a nested module, it creates an “auto-alias” for that nested module.  In other words, this code:</p>
+
+<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">defmodule</span> <span class="no">Foo</span> <span class="k">do</span>
+  <span class="k">defmodule</span> <span class="no">CSV</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="n">export</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
+      <span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>actually compiles to something more like this behind the scenes:</p>
+
+<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">defmodule</span> <span class="no">Elixir</span><span class="o">.</span><span class="no">Foo</span> <span class="k">do</span>
+  <span class="k">defmodule</span> <span class="no">Elixir</span><span class="o">.</span><span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="n">export</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
+      <span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+ 
+  <span class="n">alias</span> <span class="no">Elixir</span><span class="o">.</span><span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">CSV</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>This is why my original example threw an error - when <code class="highlighter-rouge">CSV.encode(file)</code> is called, the auto-alias directs the app to instead look for an <code class="highlighter-rouge">encode/1</code> function on the <code class="highlighter-rouge">Elixir.Foo.CSV</code> module.</p>
+
+<p>Yet, when modules are not nested, the compiler does not create an auto-alias, so there is no confusion about which <code class="highlighter-rouge">CSV</code> module I’m trying to reference.</p>
+
+<p>So if you are hitting a similar error with nested modules, consider either changing the name or switching over to a namespaced module instead.</p>
+
+  </article>
+
+  <hr>
+
+  <div class="question">
+    <h2>Questions?</h2>
+    <p>Have a question regarding the post above?</p>
+    <a class="twitter-follow-button" href="https://twitter.com/notjoeellis" data-show-count="true" data-size="large">
+      Follow @notjoeellis
+    </a>
+    <script type="text/javascript">
+      window.twttr = (function (d, s, id) {
+        var t, js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src= "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
+      }(document, "script", "twitter-wjs"));
+    </script>
+  </div>
+
+  <div class="related">
+    <h2>Related</h2>
+    
+  </div>
+
+</div>
+
+        </div>
+        <footer class="site-footer">
+  <p class="small">joeellis.la &copy; 2016</p>
+</footer>
+
+    </div>
+  </body>
+</html>
