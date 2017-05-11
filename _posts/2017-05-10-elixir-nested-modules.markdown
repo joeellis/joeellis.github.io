@@ -2,19 +2,11 @@
 layout: post
 title:  "Elixir Nested Modules and Auto-Aliasing"
 date:   2017-05-10
-description: "Nesting modules in Elixir has a few gotchas you should be aware of."
+description: "How Elixir handles compiling nested modules in the background"
 categories: elixir
 ---
 
----
-layout: post
-title:  "Elixir Nested Modules and Auto-Aliasing"
-date:   2017-05-10
-description: "Nesting modules in Elixir has a few gotchas you should be aware of."
-categories: elixir
----
-
-Recently, I was coding a CSV exports module when I came across an unexpected error in Elixir. Using the [CSV](https://github.com/beatrichartz/csv) library, I wrote something like this:
+Recently, I was coding a module to create CSV files from database records when I came across an unexpected error in Elixir. Using the [CSV](https://github.com/beatrichartz/csv) library, I wrote something like this:
 
 {% highlight elixir %}
 
@@ -62,7 +54,7 @@ What?? I thought nested modules and namespaced modules compiled to the same thin
 
 ### Why this happens
 
-After asking around, I found this behavior puzzled other Elixir developers as well. Thankfully, [Bryan Joseph](http://github.com/bryanjos) helped me figure out what was happening.
+After asking around, I found this behavior puzzled other Elixir developers as well. Thankfully, [Bryan Joseph](http://github.com/bryanjos) helped me figure out what was happening and also pointed me to part in [the docs](https://hexdocs.pm/elixir/Kernel.html#defmodule/2-nesting) that explains this behavior.
 
 While compiling, when Elixir reaches a nested module, it creates an "auto-alias" for that nested module.  In other words, this code:
 
@@ -79,19 +71,21 @@ end
 actually compiles to something more like this behind the scenes:
 
 {% highlight elixir %}
-defmodule Elixir.Foo do
-  defmodule Elixir.Foo.CSV do
+defmodule Foo do
+  defmodule Foo.CSV do
     def export(file) do
       CSV.encode(file)
     end
   end
  
-  alias Elixir.Foo.CSV, as: CSV
+  alias Foo.CSV, as: CSV
 end
 {% endhighlight %}
 
 This is why my original example threw an error - when `CSV.encode(file)` is called, the auto-alias directs the app to instead look for an `encode/1` function on the `Elixir.Foo.CSV` module.
 
 Yet, when modules are not nested, the compiler does not create an auto-alias, so there is no confusion about which `CSV` module I'm trying to reference.
+
+
 
 So if you are hitting a similar error with nested modules, consider either changing the name or switching over to a namespaced module instead.

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1">
 
   <title>Elixir Nested Modules and Auto-Aliasing</title>
-  <meta name="description" content="layout: posttitle:  “Elixir Nested Modules and Auto-Aliasing”date:   2017-05-10description: “Nesting modules in Elixir has a few gotchas you should be aware ...">
+  <meta name="description" content="Recently, I was coding a module to create CSV files from database records when I came across an unexpected error in Elixir. Using the CSV library, I wrote so...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000/elixir-nested-modules/">
@@ -42,15 +42,7 @@
   </header>
 
   <article class="post-content">
-    <hr />
-<p>layout: post
-title:  “Elixir Nested Modules and Auto-Aliasing”
-date:   2017-05-10
-description: “Nesting modules in Elixir has a few gotchas you should be aware of.”
-categories: elixir
-—</p>
-
-<p>Recently, I was coding a CSV exports module when I came across an unexpected error in Elixir. Using the <a href="https://github.com/beatrichartz/csv">CSV</a> library, I wrote something like this:</p>
+    <p>Recently, I was coding a module to create CSV files from database records when I came across an unexpected error in Elixir. Using the <a href="https://github.com/beatrichartz/csv">CSV</a> library, I wrote something like this:</p>
 
 <figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="c1"># mix.exs</span>
 <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
@@ -89,7 +81,7 @@ categories: elixir
 
 <h3 id="why-this-happens">Why this happens</h3>
 
-<p>After asking around, I found this behavior puzzled other Elixir developers as well. Thankfully, <a href="http://github.com/bryanjos">Bryan Joseph</a> helped me figure out what was happening.</p>
+<p>After asking around, I found this behavior puzzled other Elixir developers as well. Thankfully, <a href="http://github.com/bryanjos">Bryan Joseph</a> helped me figure out what was happening and also pointed me to part in <a href="https://hexdocs.pm/elixir/Kernel.html#defmodule/2-nesting">the docs</a> that explains this behavior.</p>
 
 <p>While compiling, when Elixir reaches a nested module, it creates an “auto-alias” for that nested module.  In other words, this code:</p>
 
@@ -103,14 +95,14 @@ categories: elixir
 
 <p>actually compiles to something more like this behind the scenes:</p>
 
-<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">defmodule</span> <span class="no">Elixir</span><span class="o">.</span><span class="no">Foo</span> <span class="k">do</span>
-  <span class="k">defmodule</span> <span class="no">Elixir</span><span class="o">.</span><span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span> <span class="k">do</span>
+<figure class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">defmodule</span> <span class="no">Foo</span> <span class="k">do</span>
+  <span class="k">defmodule</span> <span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span> <span class="k">do</span>
     <span class="k">def</span> <span class="n">export</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
       <span class="no">CSV</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="k">end</span>
   <span class="k">end</span>
  
-  <span class="n">alias</span> <span class="no">Elixir</span><span class="o">.</span><span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">CSV</span>
+  <span class="n">alias</span> <span class="no">Foo</span><span class="o">.</span><span class="no">CSV</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">CSV</span>
 <span class="k">end</span></code></pre></figure>
 
 <p>This is why my original example threw an error - when <code class="highlighter-rouge">CSV.encode(file)</code> is called, the auto-alias directs the app to instead look for an <code class="highlighter-rouge">encode/1</code> function on the <code class="highlighter-rouge">Elixir.Foo.CSV</code> module.</p>
@@ -141,16 +133,16 @@ categories: elixir
     </script>
   </div>
 
-  <div class="related">
+  <!--<div class="related">
     <h2>Related</h2>
     
-  </div>
+  </div>-->
 
 </div>
 
         </div>
         <footer class="site-footer">
-  <p class="small">joeellis.la &copy; 2016</p>
+  <p class="small">joeellis.la &copy; 2017</p>
 </footer>
 
     </div>
