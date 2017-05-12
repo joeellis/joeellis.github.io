@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Elixir Nested Modules and Auto-Aliasing"
+title:  "Nested Modules and Auto-Aliasing in Elixir"
 date:   2017-05-10
 description: "How Elixir handles compiling nested modules in the background"
 categories: elixir

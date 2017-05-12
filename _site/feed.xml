@@ -5,12 +5,12 @@
     <description>joeellis.la &amp;copy; 2017</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 12 May 2017 09:12:41 -0500</pubDate>
-    <lastBuildDate>Fri, 12 May 2017 09:12:41 -0500</lastBuildDate>
+    <pubDate>Fri, 12 May 2017 09:22:54 -0500</pubDate>
+    <lastBuildDate>Fri, 12 May 2017 09:22:54 -0500</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
-        <title>Elixir Nested Modules and Auto-Aliasing</title>
+        <title>Nested Modules and Auto-Aliasing in Elixir</title>
         <description>&lt;p&gt;Recently, I was coding a module to create CSV files from database records when I came across an unexpected error in Elixir. Using the &lt;a href=&quot;https://github.com/beatrichartz/csv&quot;&gt;CSV&lt;/a&gt; library, I wrote something like this:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-elixir&quot; data-lang=&quot;elixir&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# mix.exs&lt;/span&gt;
