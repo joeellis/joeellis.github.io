@@ -86,6 +86,4 @@ This is why my original example threw an error - when `CSV.encode(file)` is call
 
 Yet, when modules are not nested, the compiler does not create an auto-alias, so there is no confusion about which `CSV` module I'm trying to reference.
 
-
-
 So if you are hitting a similar error with nested modules, consider either changing the name or switching over to a namespaced module instead.
