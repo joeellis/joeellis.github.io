@@ -69,5 +69,5 @@ iex> File.read!(file.path)
 
 {% endhighlight %}
 
-Pretty neat, eh? Using streams, we created a simple and ordered pipeline to efficiently fetch data, transform it, and write it into a file - 500 records at a time. `Repo.stream/2` is a very handy tool for any situation that needs to deal with large datasets. I highly recommend you give it a try if you haven't heard of it before.
+Pretty neat, eh? Using streams, we created a simple and ordered pipeline to efficiently fetch data, transform it, and write it into a file - 500 records at a time. `Repo.stream/2` is a very handy tool dealing with large datasets, I highly recommend you give it a try if you haven't heard of it before.
 

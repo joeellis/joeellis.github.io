@@ -111,7 +111,7 @@
 <span class="n">iex</span><span class="o">&gt;</span> <span class="no">File</span><span class="o">.</span><span class="n">read!</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
 <span class="c1">#=&gt; "1,joe@example.com,2017-04-27 21:57:42.972524,2017-05-20 18:48:16.235083\r\n2,jane@example.com,2017-04-27 18:36:32.053556,2017-04-27 18:36:32.065434\r\n3,jill@example.com,2017-04-27 18:37:43.503567,2017-04-27 18:37:43.503575\r\n"</span></code></pre></figure>
 
-<p>Pretty neat, eh? Using streams, we created a simple and ordered pipeline to efficiently fetch data, transform it, and write it into a file - 500 records at a time. <code class="highlighter-rouge">Repo.stream/2</code> is a very handy tool for any situation that needs to deal with large datasets. I highly recommend you give it a try if you haven’t heard of it before.</p>
+<p>Pretty neat, eh? Using streams, we created a simple and ordered pipeline to efficiently fetch data, transform it, and write it into a file - 500 records at a time. <code class="highlighter-rouge">Repo.stream/2</code> is a very handy tool dealing with large datasets, I highly recommend you give it a try if you haven’t heard of it before.</p>
 
 
   </article>

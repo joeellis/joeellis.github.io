@@ -5,8 +5,8 @@
     <description>joeellis.la &amp;copy; 2017</description>
     <link>http://joeellis.la/</link>
     <atom:link href="http://joeellis.la/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 May 2017 13:09:18 -0500</pubDate>
-    <lastBuildDate>Sun, 21 May 2017 13:09:18 -0500</lastBuildDate>
+    <pubDate>Sun, 21 May 2017 13:11:10 -0500</pubDate>
+    <lastBuildDate>Sun, 21 May 2017 13:11:10 -0500</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -66,7 +66,7 @@
 &lt;span class=&quot;n&quot;&gt;iex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; &quot;1,joe@example.com,2017-04-27 21:57:42.972524,2017-05-20 18:48:16.235083\r\n2,jane@example.com,2017-04-27 18:36:32.053556,2017-04-27 18:36:32.065434\r\n3,jill@example.com,2017-04-27 18:37:43.503567,2017-04-27 18:37:43.503575\r\n&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Pretty neat, eh? Using streams, we created a simple and ordered pipeline to efficiently fetch data, transform it, and write it into a file - 500 records at a time. &lt;code class=&quot;highlighter-rouge&quot;&gt;Repo.stream/2&lt;/code&gt; is a very handy tool for any situation that needs to deal with large datasets. I highly recommend you give it a try if you haven’t heard of it before.&lt;/p&gt;
+&lt;p&gt;Pretty neat, eh? Using streams, we created a simple and ordered pipeline to efficiently fetch data, transform it, and write it into a file - 500 records at a time. &lt;code class=&quot;highlighter-rouge&quot;&gt;Repo.stream/2&lt;/code&gt; is a very handy tool dealing with large datasets, I highly recommend you give it a try if you haven’t heard of it before.&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 21 May 2017 00:00:00 -0500</pubDate>
