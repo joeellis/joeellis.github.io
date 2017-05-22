@@ -53,7 +53,7 @@ We then pass the stream to a `Stream.map` function which will fetch and transfor
 
 Using the wonderful [CSV library](https://github.com/beatrichartz/csv), we then pass the stream to the `CSV.encode/1` function to do all the hard work. `CSV.encode/1` both accepts and return streams, so it fits right into our pipeline setup here.
 
-Finally, a call to `Enum.into` runs the whole stream, and the actual database calls start. By default, `Repo.stream/2` pulls down 500 records at a time, and each is parsed and written to a file at `tmp/users.csv`. Lastly, our function back a file stream that points to our newly created file.  We can use this new stream to do some more file-based operations or start some other stream-based work, like uploading the file to S3, etc.
+Finally, a call to `Enum.into` runs the whole stream, and the actual database calls start. By default, `Repo.stream/2` pulls down 500 records at a time, and each is parsed and written to a file at `tmp/users.csv`. Lastly, our function returns a file stream that points to our newly created file.  We can use this new stream to do more file-based operations or start some other stream-based work, like uploading the file to S3, etc.
 
 As a test, we can see the results of our CSV in an iex console:
 

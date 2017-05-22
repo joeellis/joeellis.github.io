@@ -99,7 +99,7 @@
 
 <p>Using the wonderful <a href="https://github.com/beatrichartz/csv">CSV library</a>, we then pass the stream to the <code class="highlighter-rouge">CSV.encode/1</code> function to do all the hard work. <code class="highlighter-rouge">CSV.encode/1</code> both accepts and return streams, so it fits right into our pipeline setup here.</p>
 
-<p>Finally, a call to <code class="highlighter-rouge">Enum.into</code> runs the whole stream, and the actual database calls start. By default, <code class="highlighter-rouge">Repo.stream/2</code> pulls down 500 records at a time, and each is parsed and written to a file at <code class="highlighter-rouge">tmp/users.csv</code>. Lastly, our function back a file stream that points to our newly created file.  We can use this new stream to do some more file-based operations or start some other stream-based work, like uploading the file to S3, etc.</p>
+<p>Finally, a call to <code class="highlighter-rouge">Enum.into</code> runs the whole stream, and the actual database calls start. By default, <code class="highlighter-rouge">Repo.stream/2</code> pulls down 500 records at a time, and each is parsed and written to a file at <code class="highlighter-rouge">tmp/users.csv</code>. Lastly, our function returns a file stream that points to our newly created file.  We can use this new stream to do more file-based operations or start some other stream-based work, like uploading the file to S3, etc.</p>
 
 <p>As a test, we can see the results of our CSV in an iex console:</p>
 

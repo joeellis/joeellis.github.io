@@ -5,8 +5,8 @@
     <description>joeellis.la &amp;copy; 2017</description>
     <link>http://joeellis.la/</link>
     <atom:link href="http://joeellis.la/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 May 2017 13:11:10 -0500</pubDate>
-    <lastBuildDate>Sun, 21 May 2017 13:11:10 -0500</lastBuildDate>
+    <pubDate>Sun, 21 May 2017 19:40:53 -0500</pubDate>
+    <lastBuildDate>Sun, 21 May 2017 19:40:53 -0500</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -54,7 +54,7 @@
 
 &lt;p&gt;Using the wonderful &lt;a href=&quot;https://github.com/beatrichartz/csv&quot;&gt;CSV library&lt;/a&gt;, we then pass the stream to the &lt;code class=&quot;highlighter-rouge&quot;&gt;CSV.encode/1&lt;/code&gt; function to do all the hard work. &lt;code class=&quot;highlighter-rouge&quot;&gt;CSV.encode/1&lt;/code&gt; both accepts and return streams, so it fits right into our pipeline setup here.&lt;/p&gt;
 
-&lt;p&gt;Finally, a call to &lt;code class=&quot;highlighter-rouge&quot;&gt;Enum.into&lt;/code&gt; runs the whole stream, and the actual database calls start. By default, &lt;code class=&quot;highlighter-rouge&quot;&gt;Repo.stream/2&lt;/code&gt; pulls down 500 records at a time, and each is parsed and written to a file at &lt;code class=&quot;highlighter-rouge&quot;&gt;tmp/users.csv&lt;/code&gt;. Lastly, our function back a file stream that points to our newly created file.  We can use this new stream to do some more file-based operations or start some other stream-based work, like uploading the file to S3, etc.&lt;/p&gt;
+&lt;p&gt;Finally, a call to &lt;code class=&quot;highlighter-rouge&quot;&gt;Enum.into&lt;/code&gt; runs the whole stream, and the actual database calls start. By default, &lt;code class=&quot;highlighter-rouge&quot;&gt;Repo.stream/2&lt;/code&gt; pulls down 500 records at a time, and each is parsed and written to a file at &lt;code class=&quot;highlighter-rouge&quot;&gt;tmp/users.csv&lt;/code&gt;. Lastly, our function returns a file stream that points to our newly created file.  We can use this new stream to do more file-based operations or start some other stream-based work, like uploading the file to S3, etc.&lt;/p&gt;
 
 &lt;p&gt;As a test, we can see the results of our CSV in an iex console:&lt;/p&gt;
 
