@@ -1,16 +1,24 @@
-# Site settings
 title: "joeellis.la"
+author: "Joe Ellis"
 email: joe@joeellis.la
-description: "joeellis.la &copy; 2017"
+description: "Tech musings on all things Elixir, Ruby, and Javascript."
+copyright: "joeellis.la &copy; 2017"
 baseurl: ""
 url: "http://joeellis.la"
+logo: "/assets/img/avatar.png"
+locale: "en_us"
+timezone: "America/Chicago"
 
 # Build settings
 markdown: kramdown
 permalink: ":title/"
 highlighter: rouge
 
-gems: [jekyll-paginate]
+gems:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-minifier
 
 # Pagination
 paginate: 10
@@ -19,3 +27,12 @@ paginate_path: "blog/page/:num/"
 # Minification
 sass:
   style: compressed
+
+twitter:
+  username: notjoellis
+
+social:
+  name: Joe Ellis
+  links:
+    - https://twitter.com/notjoeellis
+    - https://github.com/joeellis
