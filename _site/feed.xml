@@ -3,53 +3,57 @@
   <channel>
     <title>joeellis.la</title>
     <description>joeellis.la &amp;copy; 2017</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 10 Jun 2017 13:33:24 -0500</pubDate>
-    <lastBuildDate>Sat, 10 Jun 2017 13:33:24 -0500</lastBuildDate>
+    <link>http://joeellis.la/</link>
+    <atom:link href="http://joeellis.la/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 10 Jun 2017 14:31:44 -0500</pubDate>
+    <lastBuildDate>Sat, 10 Jun 2017 14:31:44 -0500</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
-        <title>Creating IEx Sessions on Remote Nodes</title>
-        <description>&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; has some security implications - please read the &lt;strong&gt;security&lt;/strong&gt; section at the bottom of this article so you can fully understand what you’re getting into.&lt;/p&gt;
+        <title>Creating IEx shells on Remote Nodes</title>
+        <description>&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; has some security issues you should be aware of when using it on your local machine. Please be sure to read the &lt;strong&gt;security section&lt;/strong&gt; at the bottom of this article.&lt;/p&gt;
 
-&lt;p&gt;Recently I learned about a fun option in IEx called &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; or “remote shell”. It lets you start an IEx session on a remote Elixir (or Erlang) node without having to ssh into a remote server. Plus, the session starts in the context of the running Elixir node, so you can debug and reproduce issues an application in real time without ever stopping the system.&lt;/p&gt;
+&lt;p&gt;Recently I learned about a fun option in IEx called &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; or “remote shell”. It starts an IEx shell within the context of a running Elixir node and also connects to that node’s cluster, allowing you to debug and reproduce issues within a running application! Also note that despite the name, &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; can connect to both local and remote nodes.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; works in combination with two other options, &lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;--cookie&lt;/code&gt;.  The former creates a named IEx session (to identify yourself to other running nodes), and the latter is &lt;a href=&quot;http://erlang.org/doc/reference_manual/distributed.html#id88372&quot;&gt;the security cookie&lt;/a&gt; needed to access to the remote node (and usually found under your home directory at &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.erlang.cookie&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; works in combination with two options, &lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;--cookie&lt;/code&gt;. The first option creates a named IEx shell to identify yourself to other running nodes, and the second option is &lt;a href=&quot;http://erlang.org/doc/reference_manual/distributed.html#id88372&quot;&gt;the security cookie&lt;/a&gt; needed to access the node (often found under your home directory at &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.erlang.cookie&lt;/code&gt;).&lt;/p&gt;
 
-&lt;p&gt;To create a remote session, just run IEx like this:&lt;/p&gt;
+&lt;p&gt;To create a remote shell, run IEx like this:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# assuming you have a running instance on a server called example.com...&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;# when running Elixir app on a server called example.com...&lt;/span&gt;
 &lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;iex --name &lt;span class=&quot;s2&quot;&gt;&quot;joe@iex_test&quot;&lt;/span&gt; --cookie secret_cookie --remsh &lt;span class=&quot;s2&quot;&gt;&quot;node@example.com&quot;&lt;/span&gt;
 
 iex&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;node@example.com&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;1&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;And you’re in!  You can see your named session by running &lt;code class=&quot;highlighter-rouge&quot;&gt;Node.list&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;And you’re in! You can see your named shell by running &lt;code class=&quot;highlighter-rouge&quot;&gt;Node.list&lt;/code&gt;:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;iex(node@example.com)1&amp;gt; &lt;/span&gt;Node.list
 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;:joe@iex_test]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; has proven to be so handy that I created a bash script to easily connect to various nodes at any time from the command line:&lt;/p&gt;
+&lt;p&gt;You could even wrap this up in a simple bash script to make it easier to use:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;reiex&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;staging&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;iex --name &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;whoami&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@reiex&quot;&lt;/span&gt; --cookie secret_cookie --remsh &lt;span class=&quot;s2&quot;&gt;&quot;node@staging.example.com&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;prod&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
-    &lt;/span&gt;iex --name &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;whoami&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@reiex&quot;&lt;/span&gt; --cookie secret_cookie --remsh &lt;span class=&quot;s2&quot;&gt;&quot;node@prod.example.com&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Missing target parameter!&quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;staging&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;iex --name &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;whoami&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@reiex&quot;&lt;/span&gt; --cookie secret_cookie --remsh &lt;span class=&quot;s2&quot;&gt;&quot;node@staging.example.com&quot;&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;prod&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;iex --name &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;whoami&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@reiex&quot;&lt;/span&gt; --cookie secret_cookie --remsh &lt;span class=&quot;s2&quot;&gt;&quot;node@prod.example.com&quot;&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;else
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Environment not found!&quot;&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;This way I can easily connect to a remote server anytime by doing &lt;code class=&quot;highlighter-rouge&quot;&gt;reiex staging&lt;/code&gt;, etc.&lt;/p&gt;
+&lt;p&gt;This way you can connect to a running instance anytime by doing &lt;code class=&quot;highlighter-rouge&quot;&gt;reiex staging&lt;/code&gt;, etc. Very cool!&lt;/p&gt;
 
 &lt;h4 id=&quot;security-issues&quot;&gt;Security Issues&lt;/h4&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; has some security implications you should be aware of before you use it. Remember that Elixir / Erlang nodes have complete access to all other nodes in a given cluster - so once your computer connects via &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt;, it’s possible for other nodes in that cluster to access your local workstation.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt; has security implications you should be aware of before using it. Remember - Elixir / Erlang nodes have complete access to all other nodes in a given cluster. So when you connect from your laptop via &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt;, other nodes in that cluster &lt;strong&gt;can now access and make RPC calls on your local workstation&lt;/strong&gt;! If you connect to a compromised node from your local machine, your private files (even private SSH keys) would be up for grabs.&lt;/p&gt;
+
+&lt;p&gt;If you plan to do any serious work with remsh, I recommend reading Alex Weber’s &lt;a href=&quot;https://broot.ca/erlang-remsh-is-dangerous&quot;&gt;writeup&lt;/a&gt; which goes in further detail about this issue. Alex also offers us a more secure alternative: create an SSH connection to your remote machine first and &lt;code class=&quot;highlighter-rouge&quot;&gt;remsh&lt;/code&gt; locally to the node from there. This can at least prevent node RPC calls from being made against your workstation as well as establish a more secure connection between your machine and the node.&lt;/p&gt;
+
+&lt;p&gt;Happy &lt;code class=&quot;highlighter-rouge&quot;&gt;--remsh&lt;/code&gt;-ing everyone!&lt;/p&gt;
 </description>
-        <pubDate>Sun, 04 Jun 2017 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/remote-iex-sessions/</link>
-        <guid isPermaLink="true">http://localhost:4000/remote-iex-sessions/</guid>
+        <pubDate>Sat, 10 Jun 2017 00:00:00 -0500</pubDate>
+        <link>http://joeellis.la/remote-iex-sessions/</link>
+        <guid isPermaLink="true">http://joeellis.la/remote-iex-sessions/</guid>
         
         
         <category>elixir</category>
@@ -117,8 +121,8 @@ iex&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;node@example.com&lt;span class=
 
 </description>
         <pubDate>Sun, 21 May 2017 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/streaming-with-ecto/</link>
-        <guid isPermaLink="true">http://localhost:4000/streaming-with-ecto/</guid>
+        <link>http://joeellis.la/streaming-with-ecto/</link>
+        <guid isPermaLink="true">http://joeellis.la/streaming-with-ecto/</guid>
         
         
         <category>elixir</category>
@@ -199,8 +203,8 @@ iex&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;node@example.com&lt;span class=
 &lt;p&gt;So if you are hitting a similar error with nested modules, consider either changing the name or switching over to a namespaced module instead.&lt;/p&gt;
 </description>
         <pubDate>Wed, 10 May 2017 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/elixir-nested-modules/</link>
-        <guid isPermaLink="true">http://localhost:4000/elixir-nested-modules/</guid>
+        <link>http://joeellis.la/elixir-nested-modules/</link>
+        <guid isPermaLink="true">http://joeellis.la/elixir-nested-modules/</guid>
         
         
         <category>elixir</category>
