@@ -3,7 +3,9 @@ layout: post
 title: Streaming Data with Ecto
 date:   2017-05-21
 description: "See how to efficiently stream large datasets from a database using Ecto's Repo.stream."
-categories: elixir
+categories:
+  - elixir
+  - ecto
 ---
 
 **Note**: if you are not familiar with Elixir streams, you should [read the documentation](http://elixir-lang.org/getting-started/enumerables-and-streams.html#streams) on streams first or this post may be hard to follow.
