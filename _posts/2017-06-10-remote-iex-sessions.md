@@ -2,7 +2,7 @@
 layout: post
 title: Creating IEx shells on Remote Nodes
 date: 2017-06-10
-description: "Learn how to connect to a running elixir or erlang node with IEx from the command line."
+description: "Learn how to connect to a running Elixir or Erlang node with IEx from the command line."
 categories: elixir
 ---
 
