@@ -3,19 +3,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width initial-scale=1">
 
-
   {% seo %}
-
-
 
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
-
-  <meta name="author" content="Joe Ellis" />
-  {% if page.robots %}
-    <meta name="robots" content="{{ page.robots }}">
-  {% endif %}
-
   <link rel="canonical" href="{{ page.url | replace:'/index.html','/' | prepend: site.baseurl | prepend: site.url }}">
 
   {% if paginator.previous_page %}
