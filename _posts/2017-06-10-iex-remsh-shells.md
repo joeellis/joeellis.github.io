@@ -8,7 +8,7 @@ categories: elixir
 
 **Note**: `--remsh` has security issues you should be aware of when using it on your local machine. Please be sure to read the **security section** at the bottom of this article.
 
-Recently I learned about a fun option built into IEx called `--remsh` or "remote shell". It creates an IEx shell within the context of an Elixir node, allowing you to debug and reproduce issues inside a running application! Also note that despite the name, `--remsh` can connect to either local or remote nodes.  Here's an example of how it works:
+Recently I learned about a fun option built into IEx called `--remsh` or "remote shell". It creates an IEx shell in the context of an Elixir node, allowing you to debug and reproduce issues inside a running application! Also note that despite the name, `--remsh` can connect IEx to either local or remote nodes / applications. Here's an example of how it works:
 
 {% highlight shell %}
 # when running Elixir app on a server called example.com...
