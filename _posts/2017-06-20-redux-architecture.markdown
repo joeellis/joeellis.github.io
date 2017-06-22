@@ -23,7 +23,7 @@ In terms of saving time down the road, planning the structure of your state obje
 - Is it easy to access data within it? Does it nest properties unnecessarily?
 - Is it serializable? Could it easily be stored away in localstorage or in a database?
 - Are there any properties you could pull from the URL instead of in the state?
-- Is there any duplicated data in here? If os, is that really needed?
+- Is there any duplicated data in here? If so, is that really needed?
 
 There are **many** different ways to answer these questions - it depends on your app. But in my experience, having at least an answer for each will save you time in the long run.
 
@@ -43,9 +43,9 @@ Some Redux apps have deeply nested state structures, i.e. shapes that look like 
 }
 {% endhighlight %}
 
-I find this happens when we are dealing with relational data since it feels natural to use nesting to represent those relationships. Unfortunately for us, JavaScript lacks good native tools for handling and merging nested data structures. Using them can even cause performance issues with React / Redux itself.
+This often happens when we work with relational data as it feels natural to use nesting to represent those relationships. Unfortunately, nested data structures create complexity. At the component level, you'll have to reach even deeper into the state to get certain information. And at the reducer level, merging new data into your state will become far more complex. On top of all of that, nested data can even cause performance issues with React / Redux itself.
 
-Consider instead to flatten and [normalize](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) your state shape. In Redux land, the shallower the nesting, the easier it will be to fetch and update state data in your app. Normalized states solve the problems listed above, and make your state more flexible overall.
+Consider instead to flatten and [normalize](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) your state shape. In Redux land, the shallower the nesting, the easier it is is to fetch and update state data in your app. Normalized states help solve the problems listed above, and make your state much more flexible overall.
 
 ##### Storing only raw data in the state
 
@@ -55,13 +55,13 @@ In Redux apps, there are really two types of data. The first is raw data, data y
 
 I recommend persisting **only** raw data in your state. It helps reduces state bloat and makes it easier to reason about what data is important in your app. All other derived data should be created using functions that accept that raw data from the state return back the information you need.
 
-Before adding something new to the state object, ask yourself this question, "Can I create this from data that already exists in the state?"  If the answer is "yes", then create that data with a function. If the answer is "no", then you may have a good case to add this data to the state.  You may be surprised over time how rarely the answer is "no."
+Before adding something new to the state object, ask yourself this question, "Can I create this from data that already exists in the state?"  If the answer is "yes", then create that data with a function. If the answer is "no", then you may have a good case to add this data to the state.  You may be surprised over time how often the answer is "yes."
 
 ##### Prefer Redux state over React state
 
 React comes with [its own system for managing state](https://facebook.github.io/react/docs/react-component.html#state) inside of components. In a Redux app, though, prefer to use Redux's state for the majority of your app data and inter-component communication. It is overall much easier to reason about your app when there is one accepted way for components to set and access state, especially if you are working within a team.
 
-Note that there are reasonable exceptions to this guideline. It can be beneficial for complex UI components to persist local properties using React component state, especially when those properties aren't globally important to the app. When doing this, just try to keep that React state management localized to that component. Using two separate state systems too much, especially for inter-component communication, is likely to just cause confusion for the developer after you.
+Note that there are reasonable exceptions to this guideline. It can be beneficial for complex UI components to persist local properties using React component state, especially when those properties aren't globally important to the app. When doing this, just try to keep that React state management localized to that component. Using two separate state systems too much, especially for inter-component communication, is likely to cause confusion for the developer after you.
 
 ### Actions
 
@@ -73,20 +73,22 @@ When working with a team, having a standard object shape for your actions is ver
 
 Many example apps and tutorials I run across use simple action creator functions when teaching Redux concepts. This is great for illustrating a point, but real world apps are complex. It's inevitable that you will need to compose higher-level complex actions, preferably from existing action creators you have already written.
 
-Start a habit of making sure all your action creator functions are composable in some way. It's a simple rule that really pays off when you need it. I personally wrap each action creator in a [promise](https://github.com/then/promise) so they can be chained together easily using the `then` function.
+Start a habit of making sure all your action creator functions are composable in some way. It's a simple rule that really pays off when you need it. I personally wrap each action creator in a [promise](https://github.com/then/promise) so they can be easily chained together using the `then` function.
 
 ### Component Architecture
 
 ##### Containers & presentational components
 
-The most useful concept I've come across for building stable and easily maintainable Redux apps is the [container & presentational component](http://redux.js.org/docs/basics/UsageWithReact.html#presentational-and-container-components) paradigm as described by Dan Abramov in the official Redux documentation. I will not dive into it here as the docs already do a great job at explaining the concept with great examples. But understanding this paradigm may be one of the most useful things you can learn about in Redux land.  It is very difficult to maintain and iterate on an app of even moderate complexity without it.
+The most useful concept I've come across for building stable and easily maintainable Redux apps is the [container & presentational component](http://redux.js.org/docs/basics/UsageWithReact.html#presentational-and-container-components) paradigm as described by Dan Abramov in the official Redux documentation. I will not dive into it here as the docs already do a great job at explaining the concept with great examples. But understanding this paradigm may be one of the most useful things you can learn about in Redux land.  It is very difficult to maintain and iterate on an app of even moderate complexity without it. Learn it well.
 
 ##### Use intermediary containers
 
-While the container / presentational component paradigm works well, it's not always clear when containers should be introduced. I've seen (and written) apps with a single top-level container that fetches the whole world and then passes down everything to its component's children and their children's children. This results in props 'passing through' multiple components before they are ever even used. As your app grows, this becomes an annoying problem as even simple changes, like renaming props, involves changing many other non-related components. Definitely a code smell that something is not right.
+While the container / presentational component paradigm works, it's not always clear when containers should be introduced. I've seen (and written) apps with a single top-level container that fetches the whole world and then passes down everything to its component's children and their children's children. This results in props 'passing through' multiple components before they are ever even used. As your app grows, this becomes an annoying problem as even simple changes, like renaming props, involves changing many other non-related components. Definitely a code smell that something is not right.
 
 Instead, create containers when you notice multiple props 'passing through' multiple components. There is no need to pass props from one end to the other when a container in the middle can access the state and create those props for you. Intermediary containers also have added benefits, such as encapsulating sections of your component tree making their children easier to maintain and test. Don't be afraid to use them if the situation calls for it.
 
-### Conclusion
+### There are No Rules
 
-Remember that there are no hard rules for Redux apps, these are simply guidelines. After all, part of the fun and interesting things about Redux is its free form structure, so do not consider any of these points as the best or only way to do things. They are simply my way of doing things and so far they've proven useful enough to be worth repeating here.
+All the guidelines I've listed are just patterns I've found worth repeating. However, do not consider any these points as the *only* way to do things. After all, one of biggest advantages of Redux is its free form structure, so know when you should 'break' the rules and try something new.
+
+*This was originally posted on [joeellis.la](http://joeellis.la/redux-architecture/)*
