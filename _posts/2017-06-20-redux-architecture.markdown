@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Redux Architecture and Guidelines"
+title: "Redux Architecture Guidelines"
 date:  2017-06-20
 description: "Describing patterns I use when building Redux apps."
 tags:
