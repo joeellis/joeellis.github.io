@@ -8,7 +8,7 @@ tags:
   - redux
 ---
 
-I've written many Redux apps over the years, and it is by far my favorite JS framework. The only downside is, unlike other frameworks, Redux is far less opinionated in how to structure an app. I prefer this freedom, but it does make for a steeper learning curve, especially if you're new to Redux.  So I decided to write up some of the higher level thinking and structure I've picked up and use when thinking about Redux app architecture. Hopefully it comes in handy for someone out there.
+I've written many Redux apps over the years, and it is by far my favorite JS framework. The only downside is, unlike other frameworks, Redux is far less opinionated in how to structure an app. I prefer this freedom, but it does make for a steeper learning curve, especially if you're new to Redux.  So I decided to write up some of the higher level thinking and structure I've picked up and often use when building a Redux app. Hopefully it comes in handy for someone out there.
 
 ### State
 
@@ -83,7 +83,7 @@ The most useful concept I've come across for building stable and easily maintain
 
 ##### Use intermediary containers
 
-While the container / presentational component paradigm works well, it's not always clear on when containers should be introduced. I've seen (and written) apps with a single top-level container that fetches the whole world and then passes down everything to its component's children and their children's children. This results in props 'passing through' multiple components before they are ever even used. As your app grows, this becomes an annoying problem as even simple changes, like renaming props, involves changing many other non-related components. Definitely a code smell that something is not right.
+While the container / presentational component paradigm works well, it's not always clear when containers should be introduced. I've seen (and written) apps with a single top-level container that fetches the whole world and then passes down everything to its component's children and their children's children. This results in props 'passing through' multiple components before they are ever even used. As your app grows, this becomes an annoying problem as even simple changes, like renaming props, involves changing many other non-related components. Definitely a code smell that something is not right.
 
 Instead, create containers when you notice multiple props 'passing through' multiple components. There is no need to pass props from one end to the other when a container in the middle can access the state and create those props for you. Intermediary containers also have added benefits, such as encapsulating sections of your component tree making their children easier to maintain and test. Don't be afraid to use them if the situation calls for it.
 
