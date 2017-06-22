@@ -90,5 +90,3 @@ Instead, create containers when you notice multiple props 'passing through' mult
 ### There are No Rules
 
 All the guidelines I've listed are just patterns I've found worth repeating. However, do not consider any these points as the *only* way to do things. After all, one of biggest advantages of Redux is its free form structure, so know when you should 'break' the rules and try something new.
-
-*This was originally posted on [joeellis.la](http://joeellis.la/redux-architecture/)*
