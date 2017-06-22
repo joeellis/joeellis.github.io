@@ -3,7 +3,7 @@ layout: post
 title:  "Nested Modules and Auto-Aliasing in Elixir"
 date:   2017-05-10
 description: "How Elixir handles compiling nested modules in the background"
-categories: elixir
+tags: elixir
 ---
 
 Recently, I was coding a module to create CSV files from database records when I came across an unexpected error in Elixir. Using the [CSV](https://github.com/beatrichartz/csv) library, I wrote something like this:
@@ -31,7 +31,7 @@ end
 I expected `Foo.CSV.export(file)` to trigger the `CSV` library to encode the file I passed into the function.  To my surprise, the app came back with this error:
 
 {% highlight elixir %}
-(UndefinedFunctionError) function Foo.CSV.encode/1 is undefined 
+(UndefinedFunctionError) function Foo.CSV.encode/1 is undefined
 or private
 {% endhighlight %}
 
@@ -77,7 +77,7 @@ defmodule Foo do
       CSV.encode(file)
     end
   end
- 
+
   alias Foo.CSV, as: CSV
 end
 {% endhighlight %}

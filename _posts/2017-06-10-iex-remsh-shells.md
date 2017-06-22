@@ -3,7 +3,7 @@ layout: post
 title: Connect to Running Elixir Applications with IEx Remote Shell
 date: 2017-06-10
 description: "Using the remsh option in IEX to connect to Elixir applications from the command line."
-categories: elixir
+tags: elixir
 ---
 
 **Note**: `--remsh` has security issues you should be aware of when using it on your local machine. Please be sure to read the **security section** at the bottom of this article.

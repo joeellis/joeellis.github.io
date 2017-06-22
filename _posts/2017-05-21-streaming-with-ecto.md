@@ -3,7 +3,7 @@ layout: post
 title: Streaming Data with Ecto
 date:   2017-05-21
 description: "See how to efficiently stream large datasets from a database using Ecto's Repo.stream."
-categories:
+tags:
   - elixir
   - ecto
 ---
