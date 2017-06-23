@@ -8,7 +8,7 @@ tags:
   - redux
 ---
 
-I've written many Redux apps over the years, and it is by far my favorite JS framework. The only downside is, unlike other frameworks, Redux is far less opinionated in how to structure an app. I prefer this freedom, but it does make for a steeper learning curve, especially if you're new to Redux.  So I decided to write up some of the higher level thinking and structure I've picked up and often use when building a Redux app. Hopefully it comes in handy for someone out there.
+I've written many Redux apps over the past couple of years, and it is by far my favorite JS framework. The only downside is, unlike other frameworks, Redux is far less opinionated in how to structure an app. I prefer this freedom, but it does make for a steeper learning curve, especially if you're new to Redux.  So I decided to write up some of the higher level thinking and structure I've picked up and often use when building a Redux app. Hopefully it comes in handy for someone out there.
 
 ### State
 
