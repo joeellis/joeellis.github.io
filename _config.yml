@@ -5,7 +5,7 @@ description: "Tech musings on all things Elixir, Ruby, and Javascript."
 copyright: "joeellis.la &copy; 2017"
 baseurl: ""
 url: "http://joeellis.la"
-logo: "/assets/img/avatar.png"
+logo: "/assets/images/avatar.png"
 locale: "en_us"
 timezone: "America/Chicago"
 
