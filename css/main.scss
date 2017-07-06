@@ -6,8 +6,8 @@
 /* Icons */
 @font-face {
   font-family: 'icons';
-    src: url('/fonts/icons.eot');
-    src: url('/fonts/icons.eot#iefix') format('embedded-opentype'),
+  src: url('/fonts/icons.eot');
+  src: url('/fonts/icons.eot#iefix') format('embedded-opentype'),
     url('/fonts/icons.woff') format('woff'),
     url('/fonts/icons.ttf') format('truetype'),
     url('/fonts/icons.svg#icons') format('svg');
@@ -27,21 +27,34 @@
   text-transform: none;
   line-height: 1em;
 }
-.icon-facebook:before { content: '\e802'; }
-.icon-facebook-squared:before { content: '\e800'; }
-.icon-twitter:before { content: '\e801'; }
-.icon-twitter-1:before { content: '\e804'; }
-.icon-facebook-circled:before { content: '\e805'; }
-.icon-twitter-circled:before { content: '\e806'; }
-.icon-facebook-rect:before { content: '\e803'; }
-
+.icon-facebook:before {
+  content: '\e802';
+}
+.icon-facebook-squared:before {
+  content: '\e800';
+}
+.icon-twitter:before {
+  content: '\e801';
+}
+.icon-twitter-1:before {
+  content: '\e804';
+}
+.icon-facebook-circled:before {
+  content: '\e805';
+}
+.icon-twitter-circled:before {
+  content: '\e806';
+}
+.icon-facebook-rect:before {
+  content: '\e803';
+}
 
 @font-face {
   font-family: 'Fakt';
   src: url('/fonts/FaktPro-Thin.eot');
   src: url('/fonts/FaktPro-Thin.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/FaktPro-Thin.woff') format('woff'),
-       url('/fonts/FaktPro-Thin.ttf') format('truetype');
+    url('/fonts/FaktPro-Thin.woff') format('woff'),
+    url('/fonts/FaktPro-Thin.ttf') format('truetype');
   font-style: normal;
   font-weight: 100;
 }
@@ -50,8 +63,8 @@
   font-family: 'Fakt';
   src: url('/fonts/FaktPro-Blond.eot');
   src: url('/fonts/FaktPro-Blond.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/FaktPro-Blond.woff') format('woff'),
-       url('/fonts/FaktPro-Blond.ttf') format('truetype');
+    url('/fonts/FaktPro-Blond.woff') format('woff'),
+    url('/fonts/FaktPro-Blond.ttf') format('truetype');
   font-style: normal;
   font-weight: 300;
 }
@@ -60,33 +73,34 @@
   font-family: 'Fakt';
   src: url('/fonts/FaktPro-SemiBold.eot');
   src: url('/fonts/FaktPro-SemiBold.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/FaktPro-SemiBold.woff') format('woff'),
-       url('/fonts/FaktPro-SemiBold.ttf') format('truetype');
+    url('/fonts/FaktPro-SemiBold.woff') format('woff'),
+    url('/fonts/FaktPro-SemiBold.ttf') format('truetype');
   font-style: normal;
   font-weight: 600;
 }
 
 // Our variables
-$base-font-family: "Fakt", Helvetica, Arial, sans-serif;
-$base-font-size:   19px/1;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.7;
+$base-font-family: "Droid Serif", Helvetica, Arial, sans-serif;
+$base-font-size: 18px/1;
+$title-font-family: "PT Sans", Helvetica, Arial, sans-serif;
+$small-font-size: $base-font-size * 0.875;
+$base-line-height: 2.0;
 
-$spacing-unit:     30px;
+$spacing-unit: 30px;
 
-$text-color:       #000;
+$text-color: #000;
 $background-color: #fff;
-$brand-color:      #F26452;
+$brand-color: #F26452;
 
-$grey-color:       #828282;
+$grey-color: #828282;
 $grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+$grey-color-dark: darken($grey-color, 25%);
 
 // Width of the content area
-$content-width:    700px;
+$content-width: 700px;
 
-$on-palm:          600px;
-$on-laptop:        700px;
+$on-palm: 600px;
+$on-laptop: 700px;
 
 // Gradient colours
 // $from:  #AD76F2;
@@ -98,8 +112,8 @@ $on-laptop:        700px;
 // $from:  #ff2299;
 // $to:    #3366ff;
 
-$from:  #F88E25;
-$to:    #F3286D;
+$from: #F88E25;
+$to: #F3286D;
 
 // Using media queries with like this:
 // @include media-query($on-palm) {
@@ -109,16 +123,10 @@ $to:    #F3286D;
 //     }
 // }
 @mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+  @media screen and (max-width: $device) {
+    @content;
+  }
 }
 
-
-
 // Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "base",
-        "layout",
-        "syntax-highlighting"
-;
+@import "base", "layout", "syntax-highlighting";
