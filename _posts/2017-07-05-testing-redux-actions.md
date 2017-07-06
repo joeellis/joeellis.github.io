@@ -55,7 +55,7 @@ const fetchUsersRequest = () => {
 const fetchUsersSuccess = (users) => {
   return {
     type: Actions.FETCH_USERS_SUCCESS,
-    payload: { users }
+    payload: users
   }
 }
 
@@ -122,7 +122,7 @@ describe("UserActions", function() {
         },
         {
           type: Constants.FETCH_USERS_SUCCESS,
-          payload: { users: this.usersData }
+          payload: this.usersData
         }
       ];
 
