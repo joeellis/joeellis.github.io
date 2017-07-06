@@ -236,7 +236,7 @@ it("handle errors when fetching users from the api", function() {
 
 It has a very similar structure to the success test above. The main difference is our HTTP request mock now replies with a HTTP `500` status code (used for internal server errors) and our `expectedActions` array includes the results from the `fetchUsersFailure` action creator. Also, we run our `assert` in the `catch` portion of our promise (as we expect a failure here), and we throw an error in the success path in case our action creator incorrectly manages to succeed.
 
-And that's it! You just learned how to fully test an async action creator for a Redux app
+And that's it! You just learned how to fully test an async action creator for a Redux app!
 
 ### Conclusion
 
