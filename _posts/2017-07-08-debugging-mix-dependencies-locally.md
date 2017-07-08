@@ -8,7 +8,7 @@ tags: elixir
 
 Have you ever needed to debug a dependency, perhaps to track down a bug or maybe just to see how it works? In scripted languages like Ruby or JS, you can usually add debug statements, like `puts "test"` or `console.log("test")`, to the dependency's code and see the output the next time you run your app.
 
-This does not quite work in an Elixir / Mix project as dependencies are compiled and usually compiled just once, when they are fetched. Fortunately for us, [`mix`](https://hexdocs.pm/mix/Mix.html (Elixir's build tool) gives us an option called `path`, to automatically recompile a dependency whenever it changes. Simply declare the `path` option with your dependency in your project's `mix.exs` like so:
+This does not quite work in an Elixir / Mix project as dependencies are compiled and usually compiled just once, when they are fetched. Fortunately for us, [`mix`](https://hexdocs.pm/mix/Mix.html) (Elixir's build tool) gives us an option called `path`, to automatically recompile a dependency whenever it changes. Simply declare the `path` option with your dependency in your project's `mix.exs` like so:
 
 {% highlight elixir %}
 defp deps do
