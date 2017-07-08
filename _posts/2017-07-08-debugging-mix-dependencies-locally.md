@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Debugging Dependencies Locally
+title: Debugging Mix Dependencies Locally
 date: 2017-07-08
 description: "Elixir and Mix make it dead simple to debug dependencies."
 tags: elixir
