@@ -2,12 +2,16 @@
 <html>
   {% include head.html %}
   <body>
-    {% include header.html %}
+    <div class="site-container">
       <div class="wrapper">
+        <a class="rss-link" href="{{ "/feed.xml" | prepend: site.baseurl }}">
+          <i class="fa fa-rss" aria-hidden="true"></i>
+        </a>
         <div class="page-content">
           {{ content }}
         </div>
         {% include footer.html %}
+      </div>
     </div>
   </body>
 
