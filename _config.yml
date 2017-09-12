@@ -14,7 +14,7 @@ markdown: kramdown
 permalink: ":title/"
 highlighter: rouge
 
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
