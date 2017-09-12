@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Using Circle 2.0 with Elixir and Phoenix"
-date:   2017-08-17
+date:   2017-09-12
 description: "Making the most of CircleCI 2.0 to create an automated CI for Elixir tests"
 tags:
   - elixir
