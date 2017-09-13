@@ -11,7 +11,7 @@ tags:
 
 I recently took advantage of CircleCI's new 2.0 features in a Phoenix application and thought it was worth sharing here.  CircleCI 2.0 [boasts many new features](https://circleci.com/docs/2.0/#features) but the most interesting ones to me were the native support for Docker images and their advanced caching features.
 
-It turns out to be a great move - both of these features helped cut our build times by at least *50%*. Using a Docker iamge meant CircleCI no longer needed to compile Elixir, Erlang, and Node for each job. And the advanced caching features went a step further by giving us control over how our `build` and `deps` directories were cached, saving us on the compilation time between jobs. It did take some research through their docs and forums to figure out how to create a complete, working CircleCI yaml file, so I wanted to write up what I did in case my example helps save time for other people.
+It turns out to be a great move - both of these features helped cut our build times by at least *50%*. Using a Docker image meant CircleCI no longer needed to compile Elixir, Erlang, and Node for each job. And the advanced caching features went a step further by giving us control over how our `build` and `deps` directories were cached, saving us on the compilation time between jobs. It did take some research through their docs and forums to figure out how to create a complete, working CircleCI yaml file, so I wanted to write up what I did in case my example helps save time for other people.
 
 To start, my example config assumes the following:
 
