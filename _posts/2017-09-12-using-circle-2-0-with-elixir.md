@@ -11,7 +11,7 @@ tags:
 
 I recently took advantage of CircleCI's new 2.0 features in a Phoenix application and thought it was worth sharing here.  CircleCI 2.0 [boasts many new features](https://circleci.com/docs/2.0/#features) but the most interesting ones to me were the native support for Docker images and their advanced caching features.
 
-It turns out that both of these features worked amazingly well - our build times were cut *in half* which even better than I was expecting.  The Docker image support saved the most time it saved CircleCI from having to compile Elixir, Erlang, and Node for each job. And the advanced caching features went a step further by giving us control over how our `build` and `deps` directories were cached, saving us on the compilation time between jobs. It did take some research through their docs and forums to figure out how to create a complete, working CircleCI yaml file, so I wanted to write up what I did in case my example helps save time for other people.
+It turns out to be a great move - both of these features helped cut our build times by at least *50%*. Using a Docker iamge meant CircleCI no longer needed to compile Elixir, Erlang, and Node for each job. And the advanced caching features went a step further by giving us control over how our `build` and `deps` directories were cached, saving us on the compilation time between jobs. It did take some research through their docs and forums to figure out how to create a complete, working CircleCI yaml file, so I wanted to write up what I did in case my example helps save time for other people.
 
 To start, assume we have a brand new Phoenix app that uses the following:
 
@@ -89,7 +89,7 @@ jobs:
 {% endraw %}
 {% endhighlight %}
 
-That looks like a lot, so let's look at this piece by piece and see what's going on.
+That is a bunch of config, so let's break it down piece by piece and see what's going on:
 
 {% highlight yaml %}
 {% raw %}
@@ -115,7 +115,7 @@ First we tell CircleCI that we'd like our build to execute under the [`joeellis/
 
 The config also downloads a second docker image, [`postgres:9.6.2-alpine`](https://hub.docker.com/_/postgres/) to create a database container and with our app's database credentials ([see the official docker image for more information about supported env vars and options](https://hub.docker.com/_/postgres/).  Lastly, it sets a working directory folder called `app` in the CircleCI user's home directory.
 
-Next, the build runs through a set of initial steps to checkout our git repository, and restores any caches that may already exist:
+Next, the build checks out our git repo, and restores any caches that may already exist:
 
 {% highlight yaml %}
 {% raw %}
@@ -133,7 +133,7 @@ Next, the build runs through a set of initial steps to checkout our git reposito
 {% endraw %}
 {% endhighlight %}
 
-The cache keys here make look funny to you. What are they and where do they come from?  In short, this is part of CircleCI's new caching mechanism, and before you read the rest of this article, I *highly* recommend you [read and understand their caching](https://circleci.com/docs/2.0/caching/) because you will need to understand it to create the best caching strategy for your own app.  After reading that, read below about the `save_cache` steps first and we'll cirle back to how this `restore_cache` stuff works in a minute.
+The `restore_cache` and cache keys here make look funny to you. What are they and where do they come from?  In short, this is part of CircleCI's new caching mechanism, and before you read the rest of this article, I *highly* recommend you [read and understand their caching](https://circleci.com/docs/2.0/caching/) because you will need to understand it to create the best caching strategy for your own app.  After reading that, read below about the `save_cache` steps first and we'll cirle back to how this `restore_cache` stuff works in a minute.
 
 {% highlight yaml %}
 {% raw %}
@@ -193,7 +193,7 @@ After you understand how the `save_cache` works, then the `restore_cache` keys i
 {% endraw %}
 {% endhighlight %}
 
-All we are doing there is declaring which of our caches to check and which order should check them.
+All we are doing here is declaring which of our saved caches to check and which order should check them.
 
 Next, we use the exact same caching strategy to install our frontend `node_modules` using `yarn`:
 
