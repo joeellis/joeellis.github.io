@@ -13,12 +13,13 @@ I recently took advantage of CircleCI's new 2.0 features in a Phoenix applicatio
 
 It turns out to be a great move - both of these features helped cut our build times by at least *50%*. Using a Docker iamge meant CircleCI no longer needed to compile Elixir, Erlang, and Node for each job. And the advanced caching features went a step further by giving us control over how our `build` and `deps` directories were cached, saving us on the compilation time between jobs. It did take some research through their docs and forums to figure out how to create a complete, working CircleCI yaml file, so I wanted to write up what I did in case my example helps save time for other people.
 
-To start, assume we have a brand new Phoenix app that uses the following:
+To start, my example config assumes the following:
 
 - Elixir 1.4.2, Erlang 19.x, Node 7.x, and `yarn` compiled into a single Docker image
-- PostgreSQL for the database
+- Phoenix 1.3.x app
+- PostgreSQL 9.6
 
-Your stack may differ from the above, and that's ok. The strategy outlined here should work for the majority of Phoenix projects. Just know there may be a few things you'll have to change to make this config work for your project.
+Your stack may differ from the above, and that's ok. The strategy outlined here should still work for the majority of Phoenix and Elixir projects. Just know there may be a few things you'll have to change to make this config work for your project.
 
 To start, here is what the full CircleCI yaml config file looks like:
 
