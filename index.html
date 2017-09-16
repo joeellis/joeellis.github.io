@@ -10,7 +10,7 @@ layout: default
       </a>
     </div>
     <p class="intro-description">
-      <a href="{{ site.url }}">My name is Joe Ellis and I am a full stack developer based in New Orleans, interested all things Elixir, Ruby, and Javascript.</a>
+      My name is Joe Ellis and I am a full stack developer based in New Orleans, interested all things Elixir, Ruby, and Javascript.
     </p>
   </div>
 </div>
@@ -18,9 +18,9 @@ layout: default
 
 <div class="home">
 
-  <ul id="post-list">
+  <ul class="post-list">
     {% for post in paginator.posts %}
-      <li>
+      <li class="post-item">
         <a href="{{ post.url | prepend: site.baseurl }}">
         <aside class="dates">{{ post.date | date: "%b %-d" }}</aside>
         </a>

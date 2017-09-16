@@ -1,17 +1,9 @@
 // Header hiding
 @mixin transition($transition-property, $transition-time, $method) {
-  -webkit-transition: $transition-property $transition-time $method;
-  -moz-transition: $transition-property $transition-time $method;
-  -ms-transition: $transition-property $transition-time $method;
-  -o-transition: $transition-property $transition-time $method;
   transition: $transition-property $transition-time $method;
 }
 
 @mixin transform($transforms) {
-  -moz-transform: $transforms;
-  -o-transform: $transforms;
-  -ms-transform: $transforms;
-  -webkit-transform: $transforms;
   transform: $transforms;
 }
 
@@ -34,33 +26,7 @@
   font-family: $title-font-family;
   font-size: 18px;
   line-height: 28px;
-  color: #ff4040;
 }
-
-.header-intro a,
-.header-intro a:visited {
-  color: #717171;
-}
-
-.header-intro a:hover {
-  color: $brand-color;
-  text-decoration: none;
-}
-
-.headroom {
-  @include transition(transform, 200ms, linear);
-}
-
-.headroom--pinned {
-  display: block;
-  @include transform(translateY(0%));
-}
-.headroom--unpinned {
-  // display: none;
-  @include transform(translateY(100%));
-}
-
-// Avatar
 
 .avatar {
   width: 55px;
@@ -82,31 +48,6 @@
   margin-left: 6px;
 }
 
-.site-header a.site-title {
-  color: #fff;
-  text-align: center;
-}
-
-.site-title {
-  position: relative;
-  padding: 1em 0;
-  display: block;
-  font-weight: 600;
-  left: 60px;
-
-  &,
-  &:visited,
-  &:hover {
-    text-decoration: none;
-    color: #7923d5;
-  }
-}
-
-a .site-title {
-  color: #5badf0;
-  color: #5694f1;
-}
-
 .meta-container {
   position: relative;
 }
@@ -117,6 +58,11 @@ a .site-title {
   right: 20px;
   font-size: 17px;
   color: #b3b3b3;
+
+  &:hover {
+    background-color: #fff;
+    color: $brand-color;
+  }
 }
 
 .site-footer {
@@ -146,78 +92,81 @@ a .site-title {
   font-size: 20px;
 }
 
-#post-list {
+.post-list {
   margin-left: 0;
   list-style: none;
-
-  > li {
-    margin-bottom: $spacing-unit;
-  }
 }
 
-a,
-#post-list a:hover,
-#post-list li:hover .dates {
-  text-decoration: none;
-  color: $brand-color;
+.post-item {
+  margin-bottom: $spacing-unit;
 }
 
-#post-list a {
-  -webkit-transition: all 0.15s ease;
-  -moz-transition: all 0.15s ease;
-  -ms-transition: all 0.15s ease;
-  -o-transition: all 0.15s ease;
-  transition: all 0.15s ease;
-}
-
-#post-list,
-#archive-list {
+.post-list {
   margin-top: 50px;
 }
 
-#post-list li,
-#archive-list li {
+.post-item {
   list-style-type: none;
-}
-
-#post-list li:last-child {
-  margin-bottom: 0;
-}
-
-#post-list li + li {
   padding-top: 30px;
   border-top: 1px solid #dfe1e4;
+
+  a {
+    transition: color 0.15s ease;
+  }
+
+  h2 {
+    transition: color 0.15s ease;
+  }
+
+  .dates {
+    transition: color 0.15s ease;
+  }
+
+  &:hover {
+    a {
+      text-decoration: none;
+      color: $brand-color;
+      background-color: #fff;
+    }
+    h2 {
+      color: $brand-color;
+    }
+
+    .dates {
+      text-decoration: none;
+      color: $brand-color;
+      background-color: #fff;
+    }
+  }
+
+  a {
+    color: #333;
+    display: block;
+    font: 600 22px/1.7 $title-font-family;
+  }
+
+  h2 {
+    font: normal 19px/1.5em $base-font-family;
+    color: #aaa;
+    max-width: 550px;
+    margin-top: 2px;
+  }
+
+  .dates {
+    float: right;
+    position: relative;
+    top: 1px;
+    font: 300 17px/1.8 $base-font-family;
+    color: #bbb;
+  }
 }
 
-#post-list a {
-  color: #333;
-  display: block;
-  font: 600 22px/1.7 $title-font-family;
-}
-
-#post-list h2 {
-  font: normal 19px/1.5em $base-font-family;
-  color: #aaa;
-  max-width: 550px;
-  margin-top: 2px;
+.post-list li:last-child {
+  margin-bottom: 0;
 }
 
 #intro-text {
   padding-top: 10px;
-}
-
-#post-list .dates {
-  float: right;
-  position: relative;
-  top: 1px;
-  font: 300 17px/1.8 $base-font-family;
-  color: #bbb;
-}
-
-#post-list-footer {
-  border-top: 1px solid #dfe1e4;
-  margin-top: 20px;
-  padding-top: 100px;
 }
 
 .post-meta {
