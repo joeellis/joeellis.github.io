@@ -114,7 +114,7 @@ jobs:
 
 First we tell CircleCI that we'd like our build to execute under the [`joeellis/elixir-phoenix-node:1.0` docker image](https://hub.docker.com/r/joeellis/elixir-phoenix-node/).  This is a simple docker image I built with Elixir 1.4.2, Erlang 19.x, node 7.x, and `yarn` already installed. Any Docker image will do though - CircleCI even offers [pre-built Elixir images](https://circleci.com/docs/2.0/circleci-images/#elixir) if you'd rather not create your own.
 
-The config also downloads a second docker image, [`postgres:9.6.2-alpine`](https://hub.docker.com/_/postgres/) to create a database container and with our app's database credentials ([see the official docker image for more information about supported env vars and options](https://hub.docker.com/_/postgres/).  Lastly, it sets a working directory folder called `app` in the CircleCI user's home directory.
+The config also downloads a second docker image, [`postgres:9.6.2-alpine`](https://hub.docker.com/_/postgres/) to create a database container and with our app's database credentials (see [the official docker image docs](https://hub.docker.com/_/postgres/) for more supported options).  Lastly, it sets a working directory folder called `app` in the CircleCI user's home directory.
 
 Next, the build checks out our git repo, and restores any caches that may already exist:
 
@@ -134,7 +134,7 @@ Next, the build checks out our git repo, and restores any caches that may alread
 {% endraw %}
 {% endhighlight %}
 
-The `restore_cache` and cache keys here make look funny to you. What are they and where do they come from?  In short, this is part of CircleCI's new caching mechanism, and before you read the rest of this article, I *highly* recommend you [read and understand their caching](https://circleci.com/docs/2.0/caching/) because you will need to understand it to create the best caching strategy for your own app.  After reading that, read below about the `save_cache` steps first and we'll cirle back to how this `restore_cache` stuff works in a minute.
+The `restore_cache` and cache keys here make look funny to you. What are they and where do they come from?  In short, this is part of CircleCI's new caching mechanism, and before you read the rest of this article, I *highly* recommend you [read and understand their caching docs](https://circleci.com/docs/2.0/caching/) because you will need to understand it to create the best caching strategy for your own app.  After reading that, read below about the `save_cache` steps first and we'll cirle back to how this `restore_cache` stuff works in a minute.
 
 {% highlight yaml %}
 {% raw %}
